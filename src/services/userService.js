@@ -43,11 +43,11 @@ export const deleteUserService = async (userId) => {
     return { message: "User deleted succesfully" }
 }
 
-// Actualizar usuario
-export const updateUserService = async (userId, updateData) => {
-    await findUserByIdAndCheck(userId)
-
-    const updatedUser = await User.findByIdAndUpdate({ _id: userId  }, updateData, {new: true} )
+export const changePasswordService = async (updateData) => {
+    const {id, password} = updateData
+    await findUserByIdAndCheck(id)
+    console.log("pasando por changePasswordService")
+    const updatedUser = await User.findByIdAndUpdate({ _id: id  }, {password: password}, {new: true} )
 
     return updatedUser;
 }
