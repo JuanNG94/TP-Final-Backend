@@ -19,19 +19,14 @@ export const createUserService = async (userData) => {
     logger.info(newUser)
     await newUser.save()
     logger.info("usuario creado")
-    return { message: "User created" }
+    return { message: "User created", id: newUser._id }
 }
 
 // Obtener todos los usuarios
-export const getUsersService = async () => {
-    const users = await User.find()
-    if(users.length === 0){
-        const error = new Error("There are no users")
-        error.statusCode = 204
-        throw error
-    }
-
-    return users
+export const getUserByIdService = async (userId) => {
+    const {id} = userId
+    const user = await User.findById({ _id: id})
+    return user
 }
 
 // Borrar el usuario
@@ -46,7 +41,6 @@ export const deleteUserService = async (userId) => {
 export const changePasswordService = async (updateData) => {
     const {id, password} = updateData
     await findUserByIdAndCheck(id)
-    console.log("pasando por changePasswordService")
     const updatedUser = await User.findByIdAndUpdate({ _id: id  }, {password: password}, {new: true} )
 
     return updatedUser;
@@ -81,8 +75,6 @@ export const validateUserService = async (email, password) => {
     const payload = {
         userId: userFound._id,
         userEmail: userFound.email,
-        userName: userFound.name,
-        userLastName: userFound.lastName
     }
 
     const token = jwt.sign(payload, SECRET, { expiresIn: "1h" })

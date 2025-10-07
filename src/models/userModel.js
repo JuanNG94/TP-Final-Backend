@@ -66,6 +66,16 @@ userSchema.pre("save", function (next) {
     next()
 } )
 
+// Hook para encriptar la contraseña antes de una actualización
+userSchema.pre("findOneAndUpdate", function (next) {
+    const update = this.getUpdate();
+    if (update.password) {
+        // Si la contraseña está en el objeto de actualización, la encriptamos
+        update.password = bcrypt.hashSync(update.password, 10);
+    }
+    next();
+});
+
 // Exportamos el modelo
 // "user" es la coleccion con la que elijo trabajar
 export default mongoose.model("user", userSchema)

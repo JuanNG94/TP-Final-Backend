@@ -1,11 +1,11 @@
 import express from 'express'
-import {changePassword, createUser, validate} from '../controllers/userController.js'
+import {changePassword, createUser, getUserById, validate} from '../controllers/userController.js'
 import {verifyTokenMiddleware} from "../middleware/verifyTokenMiddleware.js";
 
 export const userRoute = express.Router()
 
 userRoute.post("/create", createUser)
-// userRoute.get("/getUsers", verifyTokenMiddleware, getUsers)
+userRoute.get("/getUserById/:id", verifyTokenMiddleware, getUserById)
 // userRoute.delete("/deleteUser/:id", verifyTokenMiddleware, deleteUser)
 userRoute.patch("/changePassword", verifyTokenMiddleware, changePassword)
 userRoute.post("/login", validate)

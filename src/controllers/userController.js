@@ -1,6 +1,6 @@
 import {
     changePasswordService,
-    createUserService,
+    createUserService, getUserByIdService,
     validateUserService
 } from "../services/userService.js";
 import logger from "../core/logger.js";
@@ -10,6 +10,16 @@ export const createUser = async (req, res) => {
         logger.info(req.body)
         const response = await createUserService(req.body)
         return res.status(201).json(response)
+    } catch (error) {
+        return res.status(500).json({ message: "Internal server error", error: error.message })
+    }
+}
+
+export const getUserById = async (req, res) => {
+    try {
+        const userId = req.params
+        const user = await getUserByIdService(userId)
+        return res.status(200).json(user)
     } catch (error) {
         return res.status(500).json({ message: "Internal server error", error: error.message })
     }
