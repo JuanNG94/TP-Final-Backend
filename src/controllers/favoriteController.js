@@ -1,22 +1,13 @@
-import {getPeliByIdService, getPelisContentService, getPelisService} from "../services/pelisService";
+import {
+    addPeliToFavoritesService,
+    deletePeliFromFavoritesService,
+    getFavoritesService
+} from "../services/favoriteService";
 
 
-export const getPelis = async (req, res) => {
+export const addPeliToFavorites = async (req, res) => {
     try {
-        const pelis = await getPelisService()
-        res.status(200).json(pelis)
-    } catch (error) {
-        console.log({error})
-        if(error.statusCode === 204){
-            return res.status(204).json([])
-        }
-        return res.status(500).json({ message: "Internal server error", error: error.message })
-    }
-}
-
-export const getPeliById = async (req, res) => {
-    try {
-        const peli = await getPeliByIdService(req.params.id)
+        const peli = await addPeliToFavoritesService(req.params.id)
         res.status(200).json(peli)
     } catch (error) {
         console.log({error})
@@ -27,10 +18,23 @@ export const getPeliById = async (req, res) => {
     }
 }
 
-export const getPelisContent = async (req, res) => {
+export const getFavoritesByUser = async (req, res) => {
     try {
-        const pelis = await getPelisContentService()
-        res.status(200).json(pelis)
+        const favorites = await getFavoritesService()
+        res.status(200).json(favorites)
+    } catch (error) {
+        console.log({error})
+        if(error.statusCode === 204){
+            return res.status(204).json([])
+        }
+        return res.status(500).json({ message: "Internal server error", error: error.message })
+    }
+}
+
+export const deletePeliFromFavorites = async (req, res) => {
+    try {
+        const peli = await deletePeliFromFavoritesService(req.params.id)
+        res.status(200).json(peli)
     } catch (error) {
         console.log({error})
         if(error.statusCode === 204){
