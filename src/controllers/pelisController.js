@@ -1,5 +1,4 @@
 import {
-    getPeliByIdService,
     getPeliByNameService,
     getPelisContentService,
     getPelisService
@@ -34,18 +33,6 @@ export const getPeliByName = async (req, res) => {
     }
 }
 
-// export const getPeliById = async (req, res) => {
-//     try {
-//         const peli = await getPeliByIdService(req.params.id)
-//         return res.status(200).json(peli)
-//     } catch (error) {
-//         logger.error({error})
-//         if(error.statusCode === 204){
-//             return res.status(204).json([])
-//         }
-//         return res.status(500).json({ message: "Internal server error", error: error.message })
-//     }
-// }
 
 export const getPelisContent = async (req, res) => {
     try {

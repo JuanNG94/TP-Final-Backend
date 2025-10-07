@@ -24,11 +24,8 @@ export const getPeliByNameService = async (body) => {
         if (!name) {
             return [];
         }
-
-        // Creamos una expresión regular para una búsqueda parcial e insensible a mayúsculas/minúsculas.
         const regex = new RegExp(name, 'i');
 
-        // Usamos find() con $regex para encontrar todas las coincidencias.
         const pelis = await pelisModel.find({original_title: { $regex: regex }});
         
         return pelis;
@@ -38,9 +35,6 @@ export const getPeliByNameService = async (body) => {
     }
 }
 
-export const getPeliByIdService = async () => {
-
-}
 
 export const getPelisContentService = async (id) => {
     try{

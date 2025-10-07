@@ -2,10 +2,12 @@ import User from "../models/userModel.js"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import {findUserByIdAndCheck} from "../utils/userHelper.js";
+import logger from "../core/logger.js";
+import {SECRET} from "../core/config.js";
 // Creamos el usuario
 
 export const createUserService = async (userData) => {
-
+    logger.info(userData.email)
     const userExists = await User.findOne({ email: userData.email });
 
     if(userExists){
@@ -14,8 +16,9 @@ export const createUserService = async (userData) => {
     // Creamos el user
     const newUser = new User(userData);
     // Save
+    logger.info(newUser)
     await newUser.save()
-
+    logger.info("usuario creado")
     return { message: "User created" }
 }
 
@@ -77,7 +80,9 @@ export const validateUserService = async (email, password) => {
 
     const payload = {
         userId: userFound._id,
-        userEmail: userFound.email
+        userEmail: userFound.email,
+        userName: userFound.name,
+        userLastName: userFound.lastName
     }
 
     const token = jwt.sign(payload, SECRET, { expiresIn: "1h" })
