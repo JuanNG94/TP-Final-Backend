@@ -1,5 +1,5 @@
 import express from 'express'
-import {addPeliToFavorites, deletePeliFromFavorites, getFavoritesByUser} from "../controllers/favoriteController";
+import {addPeliToFavorites, deletePeliFromFavorites, getFavoritesByUser} from "../controllers/favoriteController.js";
 
 
 export const favRoute = express.Router()

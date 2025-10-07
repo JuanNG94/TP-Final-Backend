@@ -2,7 +2,7 @@ import {
     addPeliToFavoritesService,
     deletePeliFromFavoritesService,
     getFavoritesService
-} from "../services/favoriteService";
+} from "../services/favoriteService.js";
 
 
 export const addPeliToFavorites = async (req, res) => {

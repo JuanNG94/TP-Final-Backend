@@ -1,8 +1,9 @@
 import express from 'express'
-import {getPeliById, getPelis, getPelisContent} from "../controllers/pelisController";
+import {getPeliByName, getPelis, getPelisContent} from "../controllers/pelisController.js";
 
 export const pelisRoute = express.Router()
 
 pelisRoute.get("/", getPelis)
-pelisRoute.get("/:id", getPeliById)
+// pelisRoute.get("/:id", getPeliById)
 pelisRoute.get( "/content/:id",getPelisContent)
+pelisRoute.post("/search", getPeliByName)

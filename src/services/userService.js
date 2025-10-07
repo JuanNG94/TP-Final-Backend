@@ -1,7 +1,7 @@
 import User from "../models/userModel.js"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import {findUserByIdAndCheck} from "../utils/userHelper";
+import {findUserByIdAndCheck} from "../utils/userHelper.js";
 // Creamos el usuario
 
 export const createUserService = async (userData) => {

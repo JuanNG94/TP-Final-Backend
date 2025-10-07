@@ -2,9 +2,11 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import session from 'express-session'
 import cors from 'cors'
-import {PORT, SECRET} from "./src/core/config";
-import {connectDB} from "./src/core/db";
-import {userRoute} from "./src/routers/userRouter";
+import {PORT, SECRET} from "./src/core/config.js";
+import {connectDB} from "./src/core/db.js";
+import {userRoute} from "./src/routers/userRouter.js";
+import {pelisRoute} from "./src/routers/pelisRouter.js";
+import {favRoute} from "./src/routers/favoriteRouter.js";
 
 // Instancia del servidor de express
 const app = express()
@@ -40,6 +42,8 @@ app.use(
 
 //Rutas base - Agrupa las rutas de un recurso
 app.use("/api/user", userRoute)
+app.use("/api/pelis", pelisRoute)
+app.use("/api/fav", favRoute)
 // Crear la escucha del servidor, para hacerlo correr
 app.listen(PORT, () => {
     console.log(`Server running at ${PORT}`)

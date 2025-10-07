@@ -4,7 +4,7 @@ import {
     getUsersService,
     updateUserService,
     validateUserService
-} from "../services/userService";
+} from "../services/userService.js";
 
 export const createUser = async (req, res) => {
     try {

@@ -1,6 +1,6 @@
 // Este util sirve para verificar los tokens
 import jwt from 'jsonwebtoken'
-import { SECRET } from '../../config.js'
+import {SECRET} from "../core/config.js";
 
 // Creamos una funcion que verifica y valida que el token sea correcto y funcional sin estar vencido
 export function verifyToken(token) {
