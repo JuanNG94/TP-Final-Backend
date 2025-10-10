@@ -7,11 +7,15 @@ import logger from "../core/logger.js";
 
 export const createUser = async (req, res) => {
     try {
-        logger.info(req.body)
         const response = await createUserService(req.body)
         return res.status(201).json(response)
     } catch (error) {
-        return res.status(500).json({ message: "Internal server error", error: error.message })
+        if (error.statusCode === 400) {
+            return res.status(400).json({ message: error.message })
+        }
+        else {
+            return res.status(500).json({ message: "Internal server error", error: error.message })
+        }
     }
 }
 
@@ -64,7 +68,7 @@ export const validate = async (req, res) => {
         // Deberiamos tomar los datos que nos mandan en el req
         const { email, password } = req.body;
         const result = await validateUserService(email, password)
-        console.log({result})
+
         return res.status(200).json(result)
     } catch (error) {
         if(error.statusCode === 400){

@@ -9,9 +9,12 @@ import {SECRET} from "../core/config.js";
 export const createUserService = async (userData) => {
     logger.info(userData.email)
     const userExists = await User.findOne({ email: userData.email });
-
+    logger.info(userData.email)
     if(userExists){
-        throw new Error("User with this email aready exists")
+        const error = new Error("El email ya se encuentra registrado");
+        error.statusCode = 400;
+        error.message = "El email ya se encuentra registrado"
+        throw error;
     }
     // Creamos el user
     const newUser = new User(userData);
@@ -47,27 +50,23 @@ export const changePasswordService = async (updateData) => {
 }
 
 export const validateUserService = async (email, password) => {
-    console.log({email, password})
     // Validar que ambos campos existan y sean correctos
     if(!(email && password)){
-        const error = new Error("There's a missing field")
+        const error = new Error("There's a missing field");
         error.statusCode = 400;
         throw error
     }
     // El email es unico y es un identificador de usuario
     const userFound = await User.findOne({email})
-    console.log(userFound)
 
     if(!userFound){
-        const error = new Error("User or password are incorrect")
+        const error = new Error("El usuario no se encuentra registrado!");
         error.statusCode = 400;
         throw error
     }
 
-    // Comparamos la password que llega contra la guardada en la db
-    // Toma la contraseña del cliente la encripta y la compara contra la guardada (encriptada)
     if(!bcrypt.compareSync(password, userFound.password)){
-        const error = new Error("User or password are incorrect")
+        const error = new Error("Contraseña incorrecta!");
         error.statusCode = 400;
         throw error
     }
