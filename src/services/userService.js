@@ -48,36 +48,3 @@ export const changePasswordService = async (updateData) => {
 
     return updatedUser;
 }
-
-export const validateUserService = async (email, password) => {
-    // Validar que ambos campos existan y sean correctos
-    if(!(email && password)){
-        const error = new Error("There's a missing field");
-        error.statusCode = 400;
-        throw error
-    }
-    // El email es unico y es un identificador de usuario
-    const userFound = await User.findOne({email})
-
-    if(!userFound){
-        const error = new Error("El usuario no se encuentra registrado!");
-        error.statusCode = 400;
-        throw error
-    }
-
-    if(!bcrypt.compareSync(password, userFound.password)){
-        const error = new Error("Contraseña incorrecta!");
-        error.statusCode = 400;
-        throw error
-    }
-
-    const payload = {
-        userId: userFound._id,
-        userEmail: userFound.email,
-    }
-
-    const token = jwt.sign(payload, SECRET, { expiresIn: "1h" })
-
-    return { message: "Logged in", token }
-
-}

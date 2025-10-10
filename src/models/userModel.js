@@ -78,4 +78,4 @@ userSchema.pre("findOneAndUpdate", function (next) {
 
 // Exportamos el modelo
 // "user" es la coleccion con la que elijo trabajar
-export default mongoose.model("user", userSchema)
+export default mongoose.model("user", userSchema, "user")

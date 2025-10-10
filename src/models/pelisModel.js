@@ -53,4 +53,4 @@ const pelisSchema = new mongoose.Schema({
 
 pelisSchema.plugin(mongoosePaginate);
 
-export default mongoose.model("movies", pelisSchema);
+export default mongoose.model("movies", pelisSchema, "movies");

@@ -7,6 +7,7 @@ import {connectDB} from "./src/core/db.js";
 import {userRoute} from "./src/routers/userRouter.js";
 import {pelisRoute} from "./src/routers/pelisRouter.js";
 import {favRoute} from "./src/routers/favoriteRouter.js";
+import {loginRoute} from "./src/routers/loginRouter.js";
 
 // Instancia del servidor de express
 const app = express()
@@ -44,6 +45,7 @@ app.use(
 app.use("/api/user", userRoute)
 app.use("/api/pelis", pelisRoute)
 app.use("/api/fav", favRoute)
+app.use("/api", loginRoute)
 // Crear la escucha del servidor, para hacerlo correr
 app.listen(PORT, () => {
     console.log(`Server running at ${PORT}`)

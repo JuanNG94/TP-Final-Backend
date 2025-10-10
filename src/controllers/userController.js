@@ -1,7 +1,6 @@
 import {
     changePasswordService,
-    createUserService, getUserByIdService,
-    validateUserService
+    createUserService, deleteUserService, getUserByIdService,
 } from "../services/userService.js";
 import logger from "../core/logger.js";
 
@@ -30,20 +29,20 @@ export const getUserById = async (req, res) => {
 }
 
 // Borrar el usuario
-// export const deleteUser = async (req, res) => {
-//     try {
-//         // Obtenemos x el path param el id
-//         // api/user/delete/:id
-//         const userId = req.params.id
-//         const result = await deleteUserService(userId)
-//         return res.status(200).json(result)
-//     } catch (error) {
-//         if(error.statusCode === 404){
-//             return res.status(error.statusCode).json({ message: error.message })
-//         }
-//         return res.status(500).json({ message: "Internal server error", error: error.message })
-//     }
-// }
+export const deleteUser = async (req, res) => {
+    try {
+        // Obtenemos x el path param el id
+        // api/user/delete/:id
+        const userId = req.params.id
+        const result = await deleteUserService(userId)
+        return res.status(200).json(result)
+    } catch (error) {
+        if(error.statusCode === 404){
+            return res.status(error.statusCode).json({ message: error.message })
+        }
+        return res.status(500).json({ message: "Internal server error", error: error.message })
+    }
+}
 
 // Actualizamos usuario
 export const changePassword = async (req, res) => {
@@ -58,22 +57,5 @@ export const changePassword = async (req, res) => {
             return res.status(404).json({ message: error.message })
         }
         return res.status(500).json({ message: "Internal server error", error: error.message })
-    }
-}
-
-
-// Autenticar/validar al usuario
-export const validate = async (req, res) => {
-    try {
-        // Deberiamos tomar los datos que nos mandan en el req
-        const { email, password } = req.body;
-        const result = await validateUserService(email, password)
-
-        return res.status(200).json(result)
-    } catch (error) {
-        if(error.statusCode === 400){
-            return res.status(error.statusCode).json({message: error.message})
-        }
-        return res.status(500).json({message: "Internal server error", error: error.message})
     }
 }

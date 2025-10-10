@@ -7,7 +7,7 @@ import {
 
 export const addPeliToFavorites = async (req, res) => {
     try {
-        const peli = await addPeliToFavoritesService(req.params.id)
+        const peli = await addPeliToFavoritesService(req.body)
         res.status(200).json(peli)
     } catch (error) {
         console.log({error})
@@ -20,7 +20,8 @@ export const addPeliToFavorites = async (req, res) => {
 
 export const getFavoritesByUser = async (req, res) => {
     try {
-        const favorites = await getFavoritesService()
+        const userId = req.params.id
+        const favorites = await getFavoritesService(userId)
         res.status(200).json(favorites)
     } catch (error) {
         console.log({error})
