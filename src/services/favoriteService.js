@@ -1,9 +1,9 @@
 import Favorite from "../models/favoritesModel.js";
+import logger from "../core/logger.js";
 
 
 export const addPeliToFavoritesService = async (peliData) => {
     const {userId, movieId} = peliData
-
     const favoriteFound = await Favorite.findOne({userId, movieId})
 
     if(favoriteFound){

@@ -1,15 +1,10 @@
 import User from "../models/userModel.js"
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
 import {findUserByIdAndCheck} from "../utils/userHelper.js";
 import logger from "../core/logger.js";
-import {SECRET} from "../core/config.js";
 // Creamos el usuario
 
 export const createUserService = async (userData) => {
-    logger.info(userData.email)
     const userExists = await User.findOne({ email: userData.email });
-    logger.info(userData.email)
     if(userExists){
         const error = new Error("El email ya se encuentra registrado");
         error.statusCode = 400;
