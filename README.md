@@ -20,7 +20,7 @@ Necesitarás tener instalado [Node.js](https://nodejs.org/) (versión 18 o super
 
 1. Clona el repositorio:
    ```sh
-   git clone https://github.com/tu-usuario/tu-repositorio.git
+   git clone https://github.com/JuanNG94/TP-Final-Backend.git
    ```
 2. Navega al directorio del backend:
    ```sh
